@@ -9,17 +9,24 @@ const config: DashdConfig = {
 
 const client = new DarkcoinClient(config);
 
-// example usage of low level 'callRPCMethod'. You can call any RPC method with this.
 
-
-const methodToRun = "help";
+const methodToRun: any = "info";
 
 switch (methodToRun) {
   case "help":
+    // example usage of low level 'callRPCMethod'. You can call any RPC method with this.
     client.callRPCMethod('help',[]).then((res) => {
       console.log(res.result);
     }).catch((e) => {
-      console.log(e)
+      console.log(`error: ${e}`)
+    });
+    break;
+
+  case "info":
+    client.getWalletInfo().then((res) => {
+      console.log(`Balance is ${res.result.balance} DASH`);
+    }).catch((e) => {
+      console.log(`error: ${e}`)
     });
     break;
   default:
